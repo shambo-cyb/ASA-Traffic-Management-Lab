@@ -80,5 +80,19 @@ This image provides a detail of log and ACL analysis on a Cisco ASA firewall. Th
 - An entry with message ID ASA-4-106023 indicates a denied ICMP packet by the firewall. This is consistent with a deny-all rule often found at the end of an ACL.
 - The show access-list command reveals the existence of an inbound ACL named "ACLInbound" that explicitly permits Telnet traffic to the DMZ host (172.16.4.8). However, the previous log entry shows a Telnet attempt was denied, indicating that a more specific, higher-priority deny rule or an implicit deny-all rule is taking effect before this permit rule is matched.
 
+### Removal of Acl and sucessful establishment of Telnet 
+<img width="600" height="882" alt="Slide3" src="https://github.com/user-attachments/assets/e693171f-fa05-4df0-b87b-c75c971e157c" />
 
+I tested connectivity to my ASA lab environment and confirmed both web and telnet access.
+- Accessed the DMZ webserver via Internet Explorer using its public IP.
+- Got prompted for authentication, showing ASA rules worked.
+- Verified telnet connectivity into R2 successfully.
+
+### Log of the DMZ Server 
+<img width="600" height="457" alt="Slide7" src="https://github.com/user-attachments/assets/7438def5-a954-40a5-b54e-ce6fb5be62fb" />
+
+I ran a series of show commands to see what was happening with traffic flowing through my network.
+- I was able to see successful TCP connections from the outside to the DMZ server, as well as a connection from the outside to an HTTP server on the DMZ.
+- I also confirmed that the ACLInbound access list was working as intended, showing denied Telnet and ICMP requests.
+- Overall, the log entries and show command outputs helped me verify that my network and firewall rules were functioning as configured.
 
