@@ -91,8 +91,22 @@ I tested connectivity to my ASA lab environment and confirmed both web and telne
 ### Log of the DMZ Server 
 <img width="600" height="457" alt="Slide7" src="https://github.com/user-attachments/assets/7438def5-a954-40a5-b54e-ce6fb5be62fb" />
 
-I ran a series of show commands to see what was happening with traffic flowing through my network.
+During the troubleshooting phase, I utilized show commands to analyze network traffic and identify connectivity issues.
+- I found that the firewall was using Port Address Translation (PAT) to allow my internal computer (192.168.1.25) to connect to both a DMZ server and the outside internet.
 - I was able to see successful TCP connections from the outside to the DMZ server, as well as a connection from the outside to an HTTP server on the DMZ.
-- I also confirmed that the ACLInbound access list was working as intended, showing denied Telnet and ICMP requests.
-- Overall, the log entries and show command outputs helped me verify that my network and firewall rules were functioning as configured.
+- I also confirmed that the ACLInbound access list was working as intended, showing denied Telnet and ICMP requests. Overall, the log entries and show command outputs helped me verify that my network and firewall rules were functioning as configured.
 
+### Service Policy 
+
+<img width="600" height="202" alt="Slide8" src="https://github.com/user-attachments/assets/233e76a6-6f5c-4e55-82db-43158a61dedd" />
+
+In this, I implemented a service policy on the outside interface of my ASA firewall to manage traffic. The show service-policy command confirmed that the policy was active and monitoring HTTP traffic.
+- The policy, named DMZ-Traffic, inspects HTTP packets. It showed that 77 packets were inspected, and 0 packets were dropped.
+- I also set a connection limit of 750 to protect against denial-of-service attacks.
+- This configuration demonstrates that my firewall is actively inspecting and managing traffic to ensure security without dropping valid packets.
+
+### Learning Outcome 
+This project provided a hands-on experience in building a secure network perimeter using a Cisco ASA firewall. By configuring and managing network services like NAT, DHCP, and ACLs, I gained a deeper understanding of how these controls form the foundation of a robust defense-in-depth strategy.
+- I learned how firewalls act as a critical control point, explicitly permitting or denying traffic to protect internal assets.
+- The use of NAT and access lists effectively hid internal network details, a key principle of cybersecurity to minimize the attack surface.
+- By monitoring logs and implementing service policies, I actively managed and secured traffic, demonstrating the proactive measures required to maintain a resilient network against threats.
